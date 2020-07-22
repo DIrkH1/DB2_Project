@@ -61,15 +61,39 @@ public class Order {
         }
     }
 
-    public ObservableList<OrderedItem> getOrderedItemList() {
-        return orderedItemList;
-    }
-
     public ObservableList<TotalEntry> getTotalCost(){
         ObservableList<TotalEntry> totalCostList = FXCollections.observableArrayList();
         totalCostList.add(new TotalEntry(netTotal, "netTotal: "));
         String vat = "grossTotal (16% tax): ";
         totalCostList.add(new TotalEntry(grossTotal, vat));
         return totalCostList;
+    }
+
+    public String toSql(){
+        return "(" + grossTotal + ", " + netTotal + ", " + customerId + ")";
+    }
+
+    public double getGrossTotal() {
+        return grossTotal;
+    }
+
+    public ObservableList<OrderedItem> getOrderedItemList() {
+        return orderedItemList;
+    }
+
+    public double getNetTotal(){
+        return netTotal = Math.round(grossTotal * 84) / 100;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
     }
 }
