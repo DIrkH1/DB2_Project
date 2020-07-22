@@ -3,6 +3,7 @@ package data;
 public class OrderedItem extends Product {
 
     private Integer orderAmount;
+
     public OrderedItem(Product product){
         super(product);
         this.orderAmount = 1;

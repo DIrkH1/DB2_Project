@@ -314,7 +314,7 @@
                                                         <TableColumn fx:id="uNameCol" minWidth="0.0" prefWidth="107.0"
                                                                      text="Name"/>
                                                         <TableColumn fx:id="uAddressCol" minWidth="6.0" prefWidth="154.0"
-                                                                     text="Adress"/>
+                                                                     text="Address"/>
                                                         <TableColumn fx:id="uCityCol" minWidth="0.0" prefWidth="120.0"
                                                                      text="City"/>
                                                         <TableColumn fx:id="uCountryCol" prefWidth="102.0"

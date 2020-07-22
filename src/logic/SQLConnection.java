@@ -1,5 +1,10 @@
 package logic;
 
+import data.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import javax.print.DocFlavor;
 import java.sql.*;
 
 public class SQLConnection {
@@ -31,24 +36,221 @@ public class SQLConnection {
         }
     }
     public void closeConnection() {
-            if (rs != null)
+            if (rs != null) {
                 try {
                     rs.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            if (p_stmt != null)
+            }
+            if (p_stmt != null) {
                 try {
                     p_stmt.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            if (con != null)
+            }
+            if (con != null) {
                 try {
                     con.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+    }
+
+    public ObservableList<Product> getProduct(){
+        ObservableList<Product> dbProduct = FXCollections.observableArrayList();
+        String sqlString = "select * from Adel_product";
+        try{
+            getConnection();
+            p_stmt = con.prepareStatement(sqlString);
+            rs = p_stmt.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String material = rs.getString("material");
+                String description = rs.getString("description");
+                double price = rs.getDouble("price");
+                dbProduct.add(new Product(id, name, material, description, price));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return dbProduct;
+    }
+
+    public void sendOrder(Order order){
+        String sqlString = "insert into Adel_order (grossTotal, netTotal, customerId) values" + order.toSql();
+        try{
+            getConnection();
+            p_stmt = con.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);
+            p_stmt.executeUpdate();
+            rs = p_stmt.getGeneratedKeys();
+            if(rs.next()){
+                int orderId = rs.getInt(1);
+                sendOrderItems(order.getOrderedItemList(),orderId);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+    }
+
+    public void sendOrderItems(ObservableList<OrderedItem> orderItemList, int orderId){
+        String values = "";
+        for(OrderedItem ordItem : orderItemList){
+            values = values + " (" + orderId + ", " + ordItem.getSQL() + "),";
+        }
+        values = values.substring(0, values.length() - 1);
+        String sqlString = "insert into Adel_orderedItems values" + values;
+        try{
+            p_stmt = con.prepareStatement(sqlString, Statement.NO_GENERATED_KEYS);
+            p_stmt.executeUpdate();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public ObservableList<Order> getOrder(){
+        ObservableList<Order> dbOrder = FXCollections.observableArrayList();
+        String sqlString = "select * from Adel_order as o" + "join Adel_orderedItems as oI on o.id = oI.orderId"
+                + "join Adel_product p on oI.productId = p.id" ;
+        try{
+          getConnection();
+          p_stmt = con.prepareStatement(sqlString);
+          rs = p_stmt.executeQuery();
+          int orderId = 0;
+          int customerId;
+          String orderDate;
+          Order dbOrderTF = new Order();
+          while (rs.next()){
+              if(orderId != rs.getInt(1)){
+                  orderId = rs.getInt(1);
+                  customerId = rs.getInt("customerId");
+                  orderDate = rs.getString("orderDate");
+                  dbOrderTF = new Order(orderId, customerId, orderDate);
+                  dbOrder.add(dbOrderTF);
+              }
+              int productId = rs.getInt("productId");
+              String productName = rs.getString("productName");
+              String material = rs.getString("material");
+              String descr = rs.getString("description");
+              Double price = rs.getDouble("price");
+              Product dbProduct = new Product(productId, productName, material, descr, price );
+              int amount = rs.getInt("orderAmount");
+              for(int i=0; i<amount; i++){
+                  dbOrder.get(dbOrder.size() - 1).addProduct(dbProduct);
+              }
+          }
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            closeConnection();
+        }
+        return dbOrder;
+    }
+
+    public void sendOrderFinish(int currentTFOrder) {
+    String sqlString = "exec Adel_finishedOrder " + currentTFOrder;
+        try {
+        getConnection();
+        p_stmt = con.prepareStatement(sqlString);
+        p_stmt.executeUpdate();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        closeConnection();
+    }
+    }
+
+    public ObservableList<Order> updateLog(){
+        ObservableList<Order> dbOrderLog = FXCollections.observableArrayList();
+        String sqlString = "exec Adel_checkprices";
+        try{
+            getConnection();
+            p_stmt = con.prepareStatement(sqlString);
+            rs = p_stmt.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("id");
+                double gross = rs.getDouble("grossTotal");
+                double net = rs.getDouble("netTotal");
+                double vat = rs.getInt("vat");
+                int customerId = rs.getInt("customerId");
+                String date = rs.getString("orderDate");
+                dbOrderLog.add(new Order(id, gross, net, vat, customerId, date));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            closeConnection();
+        }
+        return dbOrderLog;
+    }
+
+     public void postCustomer(int id, String surname, String name, String address, String city, String country, String company){
+        String sqlString = "insert into Adel_Customer values(?,?,?,?,?,?,?)";
+        try {
+            getConnection();
+            p_stmt = con.prepareStatement(sqlString);
+            p_stmt.setInt(1, id);
+            p_stmt.setString(2,surname);
+            p_stmt.setString(3,name);
+            p_stmt.setString(4, address);
+            p_stmt.setString(5, city);
+            p_stmt.setString(6, country);
+            p_stmt.setString(7, company);
+            p_stmt.executeUpdate();
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            closeConnection();
+        }
+     }
+
+     public void deleteCustomer(int id){
+        String sqlString = "delete from Adel_Customer where id=" + id;
+        try{
+            getConnection();
+            p_stmt = con.prepareStatement(sqlString);
+            p_stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+    }
+
+    public void postProduct(int id, String name, String material, String descr, double price){
+        String sqlString = "insert into Adel_Product values(?,?,?,?,?)";
+        try {
+            p_stmt.setInt(1, id);
+            p_stmt.setString(2,name);
+            p_stmt.setString(3,material);
+            p_stmt.setString(4, descr);
+            p_stmt.setDouble(5, price);
+            p_stmt.executeUpdate();
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            closeConnection();
+        }
+    }
+    public void deleteProduct(int id){
+        String sqlString = "delete from Adel_Product where id=" + id;
+        try{
+            getConnection();
+            p_stmt = con.prepareStatement(sqlString);
+            p_stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
     }
 }
+
 
