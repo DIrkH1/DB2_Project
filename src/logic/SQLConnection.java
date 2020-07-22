@@ -82,6 +82,31 @@ public class SQLConnection {
         return dbProduct;
     }
 
+    public ObservableList<Customer> getCustomer() {
+        ObservableList<Customer> dbCustomer = FXCollections.observableArrayList();
+        String sqlString = "select * from Adel_customer";
+        try{
+            getConnection();
+            p_stmt = con.prepareStatement(sqlString);
+            rs = p_stmt.executeQuery();
+            while(rs.next()){
+             int id = rs.getInt("id");
+             String surname = rs.getString("surname");
+             String name = rs.getString("name");
+             String address = rs.getString("address");
+             String city = rs.getString("city");
+             String country = rs.getString("country");
+             String company = rs.getString("company");
+             dbCustomer.add(new Customer(id,surname,name,address,city,country,company));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return dbCustomer;
+    }
+
     public void sendOrder(Order order){
         String sqlString = "insert into Adel_order (grossTotal, netTotal, customerId) values" + order.toSql();
         try{

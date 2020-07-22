@@ -14,6 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Label?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0"
             prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="GUI.Controller">
@@ -124,6 +125,13 @@
                                                                         AnchorPane.leftAnchor="5.0"
                                                                         AnchorPane.rightAnchor="5.0"
                                                                         AnchorPane.topAnchor="30.0"/>
+                                                                <Label layoutX="146.0" layoutY="6.0" prefHeight="17.0"
+                                                                       prefWidth="51.0" text="CustomerId"/>
+                                                                <TextField fx:id="customerNoText" layoutX="203.0"
+                                                                           layoutY="2.0" onAction="#setCustomerId"
+                                                                           prefHeight="25.0" prefWidth="65.0"
+                                                                           AnchorPane.rightAnchor="14.0"
+                                                                           AnchorPane.topAnchor="2.0"/>
                                                             </children>
                                                         </AnchorPane>
                                                     </items>

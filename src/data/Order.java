@@ -90,6 +90,10 @@ public class Order {
         return orderId;
     }
 
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
     public int getCustomerId() {
         return customerId;
     }
