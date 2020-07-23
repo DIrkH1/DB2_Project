@@ -3,18 +3,19 @@ package GUI;
 import data.*;
 import logic.SQLConnection;
 
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
-import logic.SQLConnection;
-import javafx.scene.control.*;
 
-import javax.swing.table.TableColumn;
-import javax.swing.text.TableView;
-import java.awt.Button;
-import java.awt.TextField;
+
+
+
 
 public class Controller {
     @FXML
@@ -68,9 +69,9 @@ public class Controller {
     @FXML
     public TableColumn logIdCol;
     @FXML
-    public TableView logGrossCol;
+    public TableColumn logGrossCol;
     @FXML
-    public TableView logNetCol;
+    public TableColumn logNetCol;
     @FXML
     public TableColumn logVatCol;
     @FXML

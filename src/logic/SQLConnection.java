@@ -21,7 +21,7 @@ public class SQLConnection {
     public void getConnection () {
         String dbHost = "134.108.190.89";
         String dbPort = "1433";
-        String dbName = "WKB4_DB2_Projekt";
+        String dbName = "SWB_DB2_Projekt";
         String dbUser = "wkb4";
         String dbPass = "wkb4";
         String connectionUrl = "jdbc:sqlserver://" +  dbHost

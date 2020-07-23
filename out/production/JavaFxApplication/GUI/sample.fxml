@@ -14,6 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Label?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0"
             prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="GUI.Controller">
@@ -124,6 +125,13 @@
                                                                         AnchorPane.leftAnchor="5.0"
                                                                         AnchorPane.rightAnchor="5.0"
                                                                         AnchorPane.topAnchor="30.0"/>
+                                                                <Label layoutX="146.0" layoutY="6.0" prefHeight="17.0"
+                                                                       prefWidth="51.0" text="CustomerId"/>
+                                                                <TextField fx:id="customerNoText" layoutX="203.0"
+                                                                           layoutY="2.0" onAction="#setCustomerId"
+                                                                           prefHeight="25.0" prefWidth="65.0"
+                                                                           AnchorPane.rightAnchor="14.0"
+                                                                           AnchorPane.topAnchor="2.0"/>
                                                             </children>
                                                         </AnchorPane>
                                                     </items>
@@ -266,8 +274,7 @@
                                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
                                                         <TableColumn fx:id="logIdCol" prefWidth="102.0" text="id"/>
-                                                        <TableColumn fx:id="logGrossCol" prefWidth="117.0"
-                                                                     text="gross"/>
+                                                        <TableColumn fx:id="logGrossCol" prefWidth="117.0" text="gross"/>
                                                         <TableColumn fx:id="logNetCol" prefWidth="118.0" text="net"/>
                                                         <TableColumn fx:id="logVatCol" prefWidth="201.0" text="vat"/>
                                                         <TableColumn fx:id="logCustomerIdCol" prefWidth="224.0"
@@ -314,7 +321,7 @@
                                                         <TableColumn fx:id="uNameCol" minWidth="0.0" prefWidth="107.0"
                                                                      text="Name"/>
                                                         <TableColumn fx:id="uAddressCol" minWidth="6.0" prefWidth="154.0"
-                                                                     text="Adress"/>
+                                                                     text="Address"/>
                                                         <TableColumn fx:id="uCityCol" minWidth="0.0" prefWidth="120.0"
                                                                      text="City"/>
                                                         <TableColumn fx:id="uCountryCol" prefWidth="102.0"

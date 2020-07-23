@@ -274,8 +274,7 @@
                                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
                                                         <TableColumn fx:id="logIdCol" prefWidth="102.0" text="id"/>
-                                                        <TableColumn fx:id="logGrossCol" prefWidth="117.0"
-                                                                     text="gross"/>
+                                                        <TableColumn fx:id="logGrossCol" prefWidth="117.0" text="gross"/>
                                                         <TableColumn fx:id="logNetCol" prefWidth="118.0" text="net"/>
                                                         <TableColumn fx:id="logVatCol" prefWidth="201.0" text="vat"/>
                                                         <TableColumn fx:id="logCustomerIdCol" prefWidth="224.0"
