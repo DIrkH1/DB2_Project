@@ -4,7 +4,6 @@ import data.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.print.DocFlavor;
 import java.sql.*;
 
 public class SQLConnection {
@@ -67,7 +66,7 @@ public class SQLConnection {
             p_stmt = con.prepareStatement(sqlString);
             rs = p_stmt.executeQuery();
             while(rs.next()){
-                int id = rs.getInt("id");
+                int id = rs.getInt("productId");
                 String name = rs.getString("name");
                 String material = rs.getString("material");
                 String description = rs.getString("description");
@@ -90,14 +89,14 @@ public class SQLConnection {
             p_stmt = con.prepareStatement(sqlString);
             rs = p_stmt.executeQuery();
             while(rs.next()){
-             int id = rs.getInt("id");
+             int customerId = rs.getInt("customerId");
              String surname = rs.getString("surname");
              String name = rs.getString("name");
              String address = rs.getString("address");
              String city = rs.getString("city");
              String country = rs.getString("country");
              String company = rs.getString("company");
-             dbCustomer.add(new Customer(id,surname,name,address,city,country,company));
+             dbCustomer.add(new Customer(customerId,surname,name,address,city,country,company));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -179,6 +178,7 @@ public class SQLConnection {
         return dbOrder;
     }
 
+
     public void sendOrderFinish(int currentTFOrder) {
     String sqlString = "exec Adel_finishedOrder " + currentTFOrder;
         try {
@@ -191,6 +191,7 @@ public class SQLConnection {
         closeConnection();
     }
     }
+
 
     public ObservableList<Order> updateLog(){
         ObservableList<Order> dbOrderLog = FXCollections.observableArrayList();
@@ -216,19 +217,19 @@ public class SQLConnection {
         return dbOrderLog;
     }
 
-     public void postCustomer(int id, String surname, String name, String address, String city, String country, String company){
-        String sqlString = "insert into Adel_Customer values(?,?,?,?,?,?,?)";
+     public void postCustomer(int customerId, String surname, String name, String address, String city, String country, String company){
+        String sqlString = "set IDENTITY_INSERT Adel_Customer ON insert into Adel_Customer(customerId,surname,name,address,city,country,company) values (?,?,?,?,?,?,?);";
         try {
             getConnection();
             p_stmt = con.prepareStatement(sqlString);
-            p_stmt.setInt(1, id);
-            p_stmt.setString(2,surname);
-            p_stmt.setString(3,name);
+            p_stmt.setInt(1, customerId);
+            p_stmt.setString(2, surname);
+            p_stmt.setString(3, name);
             p_stmt.setString(4, address);
             p_stmt.setString(5, city);
             p_stmt.setString(6, country);
             p_stmt.setString(7, company);
-            p_stmt.executeUpdate();
+            p_stmt.executeQuery();
         } catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -237,7 +238,7 @@ public class SQLConnection {
      }
 
      public void deleteCustomer(int id){
-        String sqlString = "delete from Adel_Customer where id=" + id;
+        String sqlString = "delete from Adel_Customer where customerId=" + id;
         try{
             getConnection();
             p_stmt = con.prepareStatement(sqlString);
@@ -250,8 +251,10 @@ public class SQLConnection {
     }
 
     public void postProduct(int id, String name, String material, String descr, double price){
-        String sqlString = "insert into Adel_Product values(?,?,?,?,?)";
+        String sqlString = "set IDENTITY_INSERT Adel_Product ON insert into Adel_Product(productId, name, material, description, price) values(?,?,?,?,?)";
         try {
+            getConnection();
+            p_stmt = con.prepareStatement(sqlString);
             p_stmt.setInt(1, id);
             p_stmt.setString(2,name);
             p_stmt.setString(3,material);

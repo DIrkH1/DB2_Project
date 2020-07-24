@@ -11,7 +11,7 @@ public class TestConnection {
 
         String dbHost = "134.108.190.89";
         String dbPort = "1433";
-        String dbName = "WKB4_DB2_Projek";
+        String dbName = "Spieler2_LAB";
         String dbUser =	"wkb4";
         String dbPass = "wkb4";
 
