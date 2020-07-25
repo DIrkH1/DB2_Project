@@ -13,8 +13,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 <?import javafx.scene.control.Label?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0"
             prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="GUI.Controller">
@@ -451,7 +451,7 @@
                                                         <TableColumn fx:id="uDescCol" minWidth="6.0" prefWidth="265.0"
                                                                      text="Description"/>
                                                         <TableColumn fx:id="uPriceCol" minWidth="0.0" prefWidth="180.0"
-                                                                     text="Price"/>
+                                                                     text="netPrice"/>
                                                     </columns>
                                                 </TableView>
                                             </children>

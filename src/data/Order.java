@@ -46,8 +46,8 @@ public class Order {
         if(!itemExists){
             orderedItemList.add(new OrderedItem(product));
         }
-        grossTotal = grossTotal + product.getPrice();
-        netTotal = this.getNetTotal();
+        grossTotal = grossTotal + product.getNetPrice();
+        netTotal = this.getNetPrice();
     }
 
     public void removeOrderedItem(OrderedItem orderedItem){
@@ -57,8 +57,8 @@ public class Order {
             } else {
                 orderedItemList.remove(orderedItem);
             }
-            grossTotal = grossTotal - orderedItem.getPrice();
-            netTotal = this.getNetTotal();
+            grossTotal = grossTotal - orderedItem.getNetPrice();
+            netTotal = this.getNetPrice();
         }
     }
 
@@ -82,8 +82,8 @@ public class Order {
         return orderedItemList;
     }
 
-    public double getNetTotal(){
-        return netTotal = Math.round(grossTotal * 84) / 100;
+    public double getNetPrice(){
+        return netTotal = Math.round(grossTotal * 84.0) / 100.0;
     }
 
     public int getOrderId() {

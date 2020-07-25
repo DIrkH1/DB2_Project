@@ -71,6 +71,7 @@ public class SQLConnection {
                 String material = rs.getString("material");
                 String description = rs.getString("description");
                 double price = rs.getDouble("price");
+
                 dbProduct.add(new Product(id, name, material, description, price));
             }
         } catch (Exception e) {
@@ -141,8 +142,8 @@ public class SQLConnection {
 
     public ObservableList<Order> getOrder(){
         ObservableList<Order> dbOrder = FXCollections.observableArrayList();
-        String sqlString = "select * from Adel_order as o" + "join Adel_orderedItems as oI on o.id = oI.orderId"
-                + "join Adel_product p on oI.productId = p.id" ;
+        String sqlString = "select * from Adel_order as o" + "join Adel_orderedItems as oI on o.orderId = oI.orderId"
+                + "join Adel_product p on oI.productId = p.productId" ;
         try{
           getConnection();
           p_stmt = con.prepareStatement(sqlString);
@@ -267,8 +268,9 @@ public class SQLConnection {
             closeConnection();
         }
     }
+
     public void deleteProduct(int id){
-        String sqlString = "delete from Adel_Product where id=" + id;
+        String sqlString = "delete from Adel_Product where productId=" + id;
         try{
             getConnection();
             p_stmt = con.prepareStatement(sqlString);

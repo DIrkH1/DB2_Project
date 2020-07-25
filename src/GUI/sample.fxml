@@ -451,7 +451,7 @@
                                                         <TableColumn fx:id="uDescCol" minWidth="6.0" prefWidth="265.0"
                                                                      text="Description"/>
                                                         <TableColumn fx:id="uPriceCol" minWidth="0.0" prefWidth="180.0"
-                                                                     text="Price"/>
+                                                                     text="netPrice"/>
                                                     </columns>
                                                 </TableView>
                                             </children>

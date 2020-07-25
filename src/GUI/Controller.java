@@ -13,10 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
-
-
-
 public class Controller {
     @FXML
     public TableView orderTable;
@@ -157,17 +153,27 @@ public class Controller {
     private void initializeProductList() {
         products = sql.getProduct();
         updateProductTable();
+        updateUProductTable();
     }
 
     private void updateCustomerTable(){
         uCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        uSurnameCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        uNameCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        uAddressCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        uCityCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        uCountryCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        uCompanyCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        uSurnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        uNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        uAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        uCityCol.setCellValueFactory(new PropertyValueFactory<>("city"));
+        uCountryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
+        uCompanyCol.setCellValueFactory(new PropertyValueFactory<>("company"));
         uCustomerTable.getItems().setAll(customers);
+    }
+
+    private void updateUProductTable(){
+        uProductIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        uProductNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        uMaterialCol.setCellValueFactory(new PropertyValueFactory<>("material"));
+        uDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        uPriceCol.setCellValueFactory(new PropertyValueFactory<>("netPrice"));
+        uProductTable.getItems().setAll(products);
     }
 
     private void updateProductTable(){
@@ -304,14 +310,7 @@ public class Controller {
         sql.postCustomer(id, surname, name, address, city, country, company);
         customers = sql.getCustomer();
         updateCustomerTable();
-    }
 
-    @FXML
-    public void deleteCustomer(){
-        int id = Integer.parseInt(customerIdTextField.getText());
-        sql.deleteCustomer(id);
-        customers = sql.getCustomer();
-        updateCustomerTable();
     }
 
     @FXML
@@ -348,10 +347,19 @@ public class Controller {
         String name = nameTextField2.getText();
         String material = materialTextField.getText();
         String description = descTextField.getText();
-        double price = Double.parseDouble(priceTextField.getText());
-        sql.postProduct(id, name, material,description,price);
+        double netPrice = Double.parseDouble(priceTextField.getText());
+        sql.postProduct(id, name, material,description,netPrice);
         products = sql.getProduct();
         updateProductTable();
+        updateUProductTable();
+    }
+
+    @FXML
+    public void deleteCustomer(){
+        int id = Integer.parseInt(customerIdTextField.getText());
+        sql.deleteCustomer(id);
+        customers = sql.getCustomer();
+        updateCustomerTable();
     }
 
     @FXML
@@ -360,6 +368,7 @@ public class Controller {
         sql.deleteProduct(id);
         products = sql.getProduct();
         updateProductTable();
+        updateUProductTable();
     }
 
     @FXML
@@ -369,7 +378,7 @@ public class Controller {
         uProductNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         uMaterialCol.setCellValueFactory(new PropertyValueFactory<>("material"));
         uDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        uPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        uPriceCol.setCellValueFactory(new PropertyValueFactory<>("netPrice"));
         uProductTable.getItems().setAll(products);
         uProductTable.setRowFactory(tv -> {
             TableRow<Product> row = new TableRow<>();
@@ -379,11 +388,10 @@ public class Controller {
                     nameTextField2.setText(row.getItem().getName());
                     materialTextField.setText(row.getItem().getMaterial());
                     descTextField.setText(row.getItem().getDescription());
-                    priceTextField.setText(row.getItem().getPrice().toString());
+                    priceTextField.setText(row.getItem().getNetPrice().toString());
                 }
             });
             return row;
         });
     }
-
 }
