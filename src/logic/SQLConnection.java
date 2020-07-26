@@ -70,8 +70,7 @@ public class SQLConnection {
                 String name = rs.getString("name");
                 String material = rs.getString("material");
                 String description = rs.getString("description");
-                double price = rs.getDouble("price");
-
+                double price = rs.getDouble("netPrice");
                 dbProduct.add(new Product(id, name, material, description, price));
             }
         } catch (Exception e) {
@@ -142,8 +141,8 @@ public class SQLConnection {
 
     public ObservableList<Order> getOrder(){
         ObservableList<Order> dbOrder = FXCollections.observableArrayList();
-        String sqlString = "select * from Adel_order as o" + "join Adel_orderedItems as oI on o.orderId = oI.orderId"
-                + "join Adel_product p on oI.productId = p.productId" ;
+        String sqlString = "select * from Adel_order as o" + "join Adel_orderedItems as oI on o.id = oI.orderId"
+                + "join Adel_product p on oI.productId = p.id" ;
         try{
           getConnection();
           p_stmt = con.prepareStatement(sqlString);
@@ -164,7 +163,7 @@ public class SQLConnection {
               String productName = rs.getString("productName");
               String material = rs.getString("material");
               String descr = rs.getString("description");
-              Double price = rs.getDouble("price");
+              Double price = rs.getDouble("netPrice");
               Product dbProduct = new Product(productId, productName, material, descr, price );
               int amount = rs.getInt("orderAmount");
               for(int i=0; i<amount; i++){
@@ -252,7 +251,7 @@ public class SQLConnection {
     }
 
     public void postProduct(int id, String name, String material, String descr, double price){
-        String sqlString = "set IDENTITY_INSERT Adel_Product ON insert into Adel_Product(productId, name, material, description, price) values(?,?,?,?,?)";
+        String sqlString = "set IDENTITY_INSERT Adel_Product ON insert into Adel_Product(productId, name, material, description, netPrice) values(?,?,?,?,?)";
         try {
             getConnection();
             p_stmt = con.prepareStatement(sqlString);
@@ -268,9 +267,8 @@ public class SQLConnection {
             closeConnection();
         }
     }
-
     public void deleteProduct(int id){
-        String sqlString = "delete from Adel_Product where productId=" + id;
+        String sqlString = "delete from Adel_Product where id=" + id;
         try{
             getConnection();
             p_stmt = con.prepareStatement(sqlString);
