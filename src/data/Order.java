@@ -9,7 +9,6 @@ public class Order {
     private int customerId;
     private double grossTotal;
     private double netTotal;
-    private double vat;
     private String orderDate;
 
     public Order(){
@@ -25,12 +24,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Order(int orderId, double netTotal, double grossTotal, double vat, int customerId , String orderDate ){
+    public Order(int orderId, double netTotal, double grossTotal, int customerId , String orderDate ){
         this.orderedItemList = FXCollections.observableArrayList();
         this.orderId = orderId;
         this.grossTotal = grossTotal;
         this.netTotal = netTotal;
-        this.vat = vat;
         this.customerId = customerId;
         this.orderDate = orderDate;
     }

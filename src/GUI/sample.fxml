@@ -57,9 +57,6 @@
                                                                                      text="description"/>
                                                                         <TableColumn fx:id="netPriceCol"
                                                                                      prefWidth="92.0" text="Net Price"/>
-                                                                        <TableColumn fx:id="productGrossPriceIdCol"
-                                                                                     prefWidth="102.0"
-                                                                                     text="Gross Price"/>
                                                                     </columns>
                                                                 </TableView>
                                                             </children>

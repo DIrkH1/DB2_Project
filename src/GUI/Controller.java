@@ -14,9 +14,6 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
-
-
-
 public class Controller {
     @FXML
     public TableView orderTable;
@@ -186,7 +183,6 @@ public class Controller {
         materialCol.setCellValueFactory(new PropertyValueFactory<>("material"));
         decIdCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         netPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        productGrossPriceIdCol.setCellValueFactory(new PropertyValueFactory<>("grossPrice"));
         orderTable.getItems().setAll(products);
     }
 
@@ -362,6 +358,7 @@ public class Controller {
         sql.postProduct(id, name, material,description,price);
         products = sql.getProduct();
         updateProductTable();
+        updateUProductTable();
     }
 
     @FXML

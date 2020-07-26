@@ -204,10 +204,9 @@ public class SQLConnection {
                 int id = rs.getInt("id");
                 double gross = rs.getDouble("grossTotal");
                 double net = rs.getDouble("netTotal");
-                double vat = rs.getInt("vat");
                 int customerId = rs.getInt("customerId");
                 String date = rs.getString("orderDate");
-                dbOrderLog.add(new Order(id, gross, net, vat, customerId, date));
+                dbOrderLog.add(new Order(id, gross, net,  customerId, date));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -229,7 +228,7 @@ public class SQLConnection {
             p_stmt.setString(5, city);
             p_stmt.setString(6, country);
             p_stmt.setString(7, company);
-            p_stmt.executeQuery();
+            p_stmt.executeUpdate();
         } catch (Exception e){
             e.printStackTrace();
         }finally {
