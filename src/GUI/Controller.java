@@ -187,14 +187,14 @@ public class Controller {
     }
 
     private void updateAllOrderTable(){
-        orderNameCol.setCellValueFactory(new PropertyValueFactory<>("product"));
+        orderNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         orderAmountCol.setCellValueFactory(new PropertyValueFactory<>("orderAmount"));
         orderPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         allOrderTable.getItems().setAll(order.getOrderedItemList());
     }
 
     private void updateTotalCostTable(){
-        totalDescrCol.setCellValueFactory(new PropertyValueFactory<>("totalDescr"));
+        totalDescrCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         totalCostCol.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
         totalCostTable.getItems().setAll(order.getTotalCost());
     }
