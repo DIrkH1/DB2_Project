@@ -8,14 +8,14 @@ public class Product {
     private String name;
     private String material;
     private String description;
-    private Double netPrice;
+    private Double price;
 
     public Product(Integer id, String name, String material, String description, Double netPrice){
         this.id =id;
         this.name = name;
         this.material = material;
         this.description = description;
-        this.netPrice = netPrice;
+        this.price = netPrice;
     }
 
     public Product(Product product){
@@ -23,7 +23,7 @@ public class Product {
         this.name = name;
         this.material = material;
         this.description = description;
-        this.netPrice = netPrice;
+        this.price = price;
     }
 
     public Integer getId() {
@@ -42,7 +42,7 @@ public class Product {
         return description;
     }
 
-    public Double getNetPrice() {
-        return netPrice;
+    public Double getPrice() {
+        return price;
     }
 }

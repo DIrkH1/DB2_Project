@@ -44,7 +44,7 @@ public class Order {
         if(!itemExists){
             orderedItemList.add(new OrderedItem(product));
         }
-        grossTotal = grossTotal + product.getNetPrice();
+        grossTotal = grossTotal + product.getPrice();
         netTotal = this.getNetPrice();
     }
 
@@ -55,7 +55,7 @@ public class Order {
             } else {
                 orderedItemList.remove(orderedItem);
             }
-            grossTotal = grossTotal - orderedItem.getNetPrice();
+            grossTotal = grossTotal - orderedItem.getPrice();
             netTotal = this.getNetPrice();
         }
     }
