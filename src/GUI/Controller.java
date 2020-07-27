@@ -143,7 +143,7 @@ public class Controller {
     private void initialize(){
         initializeProductList();
         initializeCustomerList();
-        setTableEvent();
+        setOrderEvent();
     }
 
     private void initializeCustomerList(){
@@ -187,9 +187,9 @@ public class Controller {
     }
 
     private void updateAllOrderTable(){
-        orderNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        orderAmountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        orderPriceCol.setCellValueFactory(new PropertyValueFactory<>("grossPrice"));
+        orderNameCol.setCellValueFactory(new PropertyValueFactory<>("product"));
+        orderAmountCol.setCellValueFactory(new PropertyValueFactory<>("orderAmount"));
+        orderPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         allOrderTable.getItems().setAll(order.getOrderedItemList());
     }
 
@@ -199,7 +199,7 @@ public class Controller {
         totalCostTable.getItems().setAll(order.getTotalCost());
     }
 
-    private void setTableEvent() {
+    private void setOrderEvent() {
         orderTable.setRowFactory(tv -> {
             TableRow<Product> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -211,7 +211,7 @@ public class Controller {
             });
             return row;
         });
-        orderTable.setRowFactory(tv -> {
+        allOrderTable.setRowFactory(tv -> {
             TableRow<OrderedItem> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() > 1 && (!row.isEmpty())) {
