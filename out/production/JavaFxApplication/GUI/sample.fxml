@@ -37,7 +37,7 @@
                                                                         <TableColumn fx:id="productNameCol" minWidth="0.0" prefWidth="96.0" text="name" />
                                                                         <TableColumn fx:id="materialCol" minWidth="0.0" prefWidth="129.0" text="material" />
                                                                         <TableColumn fx:id="decIdCol" minWidth="0.0" prefWidth="259.0" text="description" />
-                                                                        <TableColumn fx:id="netPriceCol" prefWidth="131.0" text="Net Price" />
+                                                                        <TableColumn fx:id="netPriceCol" prefWidth="131.0" text="Price" />
                                                                     </columns>
                                                                 </TableView>
                                                             </children>
@@ -73,7 +73,7 @@
                                                         </AnchorPane>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                                             <children>
-                                                                <Button fx:id="orderButton" disable="true" layoutY="41.0" mnemonicParsing="false" onAction="#submitOrder" prefHeight="46.0" prefWidth="273.0" text="Order Now" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0" />
+                                                                <Button fx:id="orderButton" disable="false" layoutY="41.0" mnemonicParsing="false" onAction="#submitOrder" prefHeight="46.0" prefWidth="273.0" text="Order Now" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0" />
                                                                 <Label layoutX="146.0" layoutY="6.0" prefHeight="17.0" prefWidth="51.0" text="CustomerId" />
                                                                 <TextField fx:id="customerNoText" layoutX="203.0" layoutY="2.0" onAction="#setCustomerId" prefHeight="25.0" prefWidth="65.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="2.0" />
                                                             </children>
@@ -303,7 +303,7 @@
                                                         <TableColumn fx:id="uProductNameCol" prefWidth="109.0" text="Name" />
                                                         <TableColumn fx:id="uMaterialCol" minWidth="0.0" prefWidth="118.0" text="Material" />
                                                         <TableColumn fx:id="uDescCol" minWidth="6.0" prefWidth="265.0" text="Description" />
-                                                        <TableColumn fx:id="uPriceCol" minWidth="0.0" prefWidth="180.0" text="netPrice" />
+                                                        <TableColumn fx:id="uPriceCol" minWidth="0.0" prefWidth="180.0" text="Price" />
                                                     </columns>
                                                 </TableView>
                                             </children>
