@@ -10,12 +10,12 @@ public class Product {
     private String description;
     private Double price;
 
-    public Product(Integer id, String name, String material, String description, Double netPrice){
+    public Product(Integer id, String name, String material, String description, Double price){
         this.id =id;
         this.name = name;
         this.material = material;
         this.description = description;
-        this.price = netPrice;
+        this.price = price;
     }
 
     public Product(Product product){

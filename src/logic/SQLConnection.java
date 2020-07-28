@@ -107,7 +107,9 @@ public class SQLConnection {
     }
 
     public void sendOrder(Order order){
-        String sqlString = "insert into Adel_order (grossTotal, netTotal, customerId) values" + order.toSql();
+        String sqlString = "set IDENTITY_INSERT Adel_Customer ON "
+                + "insert into Adel_order (orderId, orderedItemsId, customerId, grossTotal, netTotal,orderDate) values"
+                + order.toSql();
         try{
             getConnection();
             p_stmt = con.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);

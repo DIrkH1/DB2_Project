@@ -10,6 +10,7 @@ public class Order {
     private double grossTotal;
     private double netTotal;
     private String orderDate;
+    private int orderedItemsId;
 
     public Order(){
         this.orderedItemList = FXCollections.observableArrayList();
@@ -62,14 +63,14 @@ public class Order {
 
     public ObservableList<TotalEntry> getTotalCost(){
         ObservableList<TotalEntry> totalCostList = FXCollections.observableArrayList();
-        totalCostList.add(new TotalEntry(netTotal, "netTotal: "));
-        String vat = "grossTotal (16% tax): ";
+        totalCostList.add(new TotalEntry(netTotal, "grossTotal (16% tax):"));
+        String vat = "netTotal: ";
         totalCostList.add(new TotalEntry(grossTotal, vat));
         return totalCostList;
     }
 
     public String toSql(){
-        return "(" + grossTotal + ", " + netTotal + ", " + customerId + ")";
+        return "("+ orderId+ "," + orderedItemsId + "," + customerId + "," + grossTotal + ", " + netTotal + ", "+ orderDate +  ")";
     }
 
     public double getGrossTotal() {
@@ -81,7 +82,7 @@ public class Order {
     }
 
     public double getNetPrice(){
-        return netTotal = Math.round(grossTotal * 84.0) / 100.0;
+        return netTotal = Math.round(grossTotal * 116) / 100.0;
     }
 
     public int getOrderId() {

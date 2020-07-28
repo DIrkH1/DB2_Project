@@ -194,7 +194,7 @@ public class Controller {
     }
 
     private void updateTotalCostTable(){
-        totalDescrCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        totalDescrCol.setCellValueFactory(new PropertyValueFactory<>("desTotalCost"));
         totalCostCol.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
         totalCostTable.getItems().setAll(order.getTotalCost());
     }
@@ -271,7 +271,7 @@ public class Controller {
     }
 
     private void updateOrderTFTDetails(ObservableList<OrderedItem> itemList){
-        tf_productIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tf_productIdCol.setCellValueFactory(new PropertyValueFactory<>("productId"));
         tf_productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         tf_orderAmountCol.setCellValueFactory(new PropertyValueFactory<>("orderAmount"));
     }

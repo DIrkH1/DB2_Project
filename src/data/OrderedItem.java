@@ -26,7 +26,7 @@ public class OrderedItem extends Product {
     }
 
     public String getSQL(){
-        return getId() + ", '" + getName() + " '" + orderAmount;
+        return getId() + ", '" + getName() + "'," + orderAmount;
     }
 
 }
